@@ -6,14 +6,14 @@ def imprimir(texto):
 def convertir(texto):
   diccionario = dict()
   imprimir(texto)
-  texto = texto_m_sp = re.sub(r'[^\w\s]', '', texto)
+  texto = re.sub(r'[^\w\s]', '', texto)
   imprimir(texto)
   texto = texto.lower()
   imprimir(texto)
   lista = texto.split()
   for palabra in lista:
     diccionario[palabra] = diccionario.get(palabra,0)+1
-  imprimir(f'Cantidad por palabra: {diccionario}')
+  print(f'Cantidad por palabra: {diccionario}')
 
   return diccionario
   
@@ -38,6 +38,5 @@ La madre de Juan le enseña que Simón Bolívar dijo:
 "Un ser sin estudio es un ser incompleto".
 """
 
-convertir(texto)
 diccionario = convertir(texto)
 ordenar_diccionario(diccionario)
