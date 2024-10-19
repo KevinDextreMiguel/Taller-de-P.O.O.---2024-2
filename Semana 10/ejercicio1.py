@@ -1,77 +1,71 @@
-class Computadora():#base
-  __lista = []
-  def __init__(self, precio_base, procesador, pantalla):
-    self.__precio_base = precio_base
+class Computadora():#base (padre)
+  __lista = list()
+  def __init__(self, precio, procesador, pantalla):
+    self.__precio = precio
     self.__procesador = procesador
     self.__pantalla = pantalla
-    self.__precio_final = 0
+    self.__precio_pantalla = 0
+  def __str__(self):
+    return f"Precio: {self.__precio}, Procesador: {self.__procesador}, Pantalla: {self.__pantalla}"
+  def agregar(self,objeto):
+    self.__lista.append(objeto)
+  def mostrar(self):
+    for objeto in self.__lista:
+      print(objeto)
   #get
-  def set_precio_base(self, precio_base):
-    self.__precio_base = precio
-  def set_procesador(self, procesador):
-    self.__procesador = procesador
-  def set_pantalla(self, pantalla):
-    self.__pantalla = pantalla
-  def set_precio_final(self, precio_final):
-    self.__precio_final = precio_final
-  #get
-  def get_precio_base(self):
-    return self.__precio_base
+  def get_precio(self):
+    return self.__precio
   def get_procesador(self):
     return self.__procesador
   def get_pantalla(self):
     return self.__pantalla
-  def get_precio_final(self):
-    return self.__precio_final
-  #str
-  def __str__(self):
-    return f'Precio final: {self.__precio_final}, procesador: {self.__procesador}, pantalla: {self.__pantalla}'
-  #agregar
-  def agregar(self, obj):
-    self.__lista.append(obj)
-  def listar(self):
-    for obj in self.__lista:
-      print(obj)
-
+  def get_precio_pantalla(self):
+    return self.__precio_pantalla
+  #set
+  def set_precio(self, precio):
+    self.__precio = precio
+  def set_procesador(self, procesador):
+    self.__procesador = procesador
+  def set_pantalla(self, pantalla):
+    self.__pantalla = pantalla
+  def set_precio_pantalla(self, precio_pantalla):
+    self.__precio_pantalla = precio_pantalla
 
 class Laptop(Computadora):#derivada
-  def __init__(self, precio_base, procesador, pantalla):
-    super().__init__(precio_base, procesador, pantalla)
-
-  def precio_pantalla(self):
+  def __init__(self, precio, procesador, pantalla):
+    super().__init__(precio, procesador, pantalla)
+  def precio_final(self):
     if self.get_pantalla() == 'tactil':
-      self.set_precio_final(self.get_precio_base()*1.05)
-  def precio_final(self):
-    self.precio_pantalla()
-    #procesador
+      self.set_precio_pantalla(self.get_precio() * 0.05)
+    
     if self.get_procesador() == 'i5':
-      self.set_precio_final(self.get_precio_base()*0.1+self.get_precio_final())
+      self.set_precio(self.get_precio()*1.1)
     elif self.get_procesador() == 'i7':
-      self.set_precio_final(self.get_precio_base()*0.15+self.get_precio_final())
-        
-
-class Desktop(Computadora):#derivada
-  def precio_pantalla(self):
+      self.set_precio(self.get_precio()*1.15)
+    self.set_precio(self.get_precio()+self.get_precio_pantalla())
+    
+class Desktop(Computadora):
+  def __init__(self, precio, procesador, pantalla):
+    super().__init__(precio, procesador, pantalla)
+  def precio_final(self):
     if self.get_pantalla() == 'HD':
-      self.set_precio_final(200)
+      self.set_precio_pantalla(200)
     else:
-      self.set_precio_final(300)
-  def precio_final(self):
-    #procesador
-    self.precio_pantalla()
+      self.set_precio_pantalla(300)
+    
     if self.get_procesador() == 'i5':
-      self.set_precio_final(self.get_precio_base()*1.08+self.get_precio_final())
+      self.set_precio(self.get_precio()*1.08)
     elif self.get_procesador() == 'i7':
-      self.set_precio_final(self.get_precio_base()*1.12+self.get_precio_final())
- 
+      self.set_precio(self.get_precio()*1.12)
+    self.set_precio(self.get_precio()+self.get_precio_pantalla())
 
 
-obj_laptop = Laptop(1000,'i3','tactil')
-obj_laptop.agregar(obj_laptop)
-obj_laptop.precio_final()
-
-obj_desktop = Desktop(600,'i5','4k')
-obj_desktop.agregar(obj_desktop)
-obj_desktop.precio_final()
-
-obj_laptop.listar()
+objeto_laptop = Laptop(1000,'i5','tactil')
+objeto_laptop.precio_final()
+objeto_laptop.agregar(objeto_laptop)
+objeto_laptop.mostrar()
+print('======================')
+objeto_desktop = Desktop(600,'i7','HD')
+objeto_desktop.precio_final()
+objeto_desktop.agregar(objeto_desktop)
+objeto_desktop.mostrar()
