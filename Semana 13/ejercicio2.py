@@ -12,7 +12,7 @@ def grafico_pie(df):
   print()
 
 def histograma(df):
-  df_age = df[df['Age'].notna()]
+  df_age= df.dropna(subset=['Age'])
   plt.figure(figsize=(10,5))
   plt.hist(df_age['Age'],bins=30,color='yellow',edgecolor='black')
   plt.xlabel('Edad')
