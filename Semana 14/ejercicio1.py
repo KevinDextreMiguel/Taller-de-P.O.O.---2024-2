@@ -1,13 +1,19 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def graficar(ventas,titulo):
-  ventas.plot(kind='pie',title=titulo,autopct='%1.1f%%')
-  plt.savefig('grafico.png')
-  plt.show()
+class Ventas:
+  def __init__(self,datos,titulo):
+    self.__datos = datos
+    self.__titulo = titulo
+  
+  def graficar(self):
+    self.__datos.plot(kind='pie',title=titulo,autopct='%1.1f%%')
+    plt.savefig(titulo+'.png')
+    plt.show()
 
-
-dato = {'Enero':450,'Febrero':400,'Marzo':500}
-titulo = 'Ventas primer trimestre'
-ventas = pd.Series(dato)
-graficar(ventas,titulo)
+datos = {'Enero':1200,'Febrero':1400,'Marzo':1600}
+ventas = pd.Series(datos)
+titulo = 'Ventas'
+#creamos un objeto
+objeto_ventas = Ventas(ventas,titulo)
+objeto_ventas.graficar()
