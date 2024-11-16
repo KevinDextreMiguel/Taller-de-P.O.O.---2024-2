@@ -1,39 +1,33 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 
-def leer():
-  url = 'https://raw.githubusercontent.com/selva86/datasets/master/Cars93_miss.csv'
-  df = pd.read_csv(url)
-  return df
+class Data:
+  def __init__(self):
+    self.__df = ''
+    self.__url = 'https://raw.githubusercontent.com/selva86/datasets/master/Cars93_miss.csv'
+  def leer(self):
+    self.__df = pd.read_csv(self.__url)
+  def hallar_mayor_precio(self):
+    fila_mayor_precio = self.__df.loc[self.__df['Price'].idxmax()]
+    fabricante = fila_mayor_precio['Manufacturer']
+    modelo = fila_mayor_precio['Model']
+    print(f'El fabricante con mayor precio es {fabricante} con el modelo {modelo}')
+  def guardar(self):
+    self.__df.to_excel('datos.xlsx',index=False)
+    print('Se ha guardado el archivo')
+  def intercambiar(self):
+    self.__df.iloc[[0,1]] = self.__df.iloc[[1,0]]
+    self.__df.to_excel('modificado.xlsx',index=False)
+    print('Se hizo el cambio')
+  def graficar(self):
+    precios_proemdios = self.__df.groupby(['Manufacturer','Model'])['Price'].mean()
+    plt.figure(figsize=(16,20))
+    precios_proemdios.plot(kind='barh',color='green')
+    plt.show()
 
-def hallar_precio_mayor(df):
-  fila_precio_mayor = df.loc[df['Price'].idxmax()]
-  fabricante = fila_precio_mayor['Manufacturer']
-  modelo = fila_precio_mayor['Model']
-  tipo = fila_precio_mayor['Type']
-  precio = fila_precio_mayor['Price']
-  
-  print(f'Fabricante: {fabricante}')
-  print(f'Modelo: {modelo}')
-  print(f'Tipo: {tipo}')
-  print(f'Precio Mayor: {precio}')
-
-def intercambiar_fila(df):
-  df.iloc[[0,1]] = df.iloc[[1,0]].values
-  #df.to_excel('modificado.xlsx')
-
-def graficar(df):
-  precios_promedios = df.groupby(['Manufacturer','Model'])['Price'].mean()
-  plt.figure(figsize=(16,26))
-  precios_promedios.plot(kind='barh',color='red')
-  plt.title'Precio Promedio por Modelo y Marca'
-  plt.xlabel('Precio Promedio')
-  plt.show()
-
-
-df = leer()
-#df.to_excel('datos.xlsx')
-hallar_precio_mayor(df)
-intercambiar_fila(df)
-graficar(df)
+objeto = Data()
+objeto.leer()
+objeto.guardar()
+objeto.hallar_mayor_precio()
+objeto.intercambiar()
+objeto.graficar()
