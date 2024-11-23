@@ -3,35 +3,35 @@ class Administrador:
     self.__id = id
     self.__nombre = nombre
   def __str__(self):
-    return f"ID: {self.__id} Nombre: {self.__nombre}"
+    return f"Id: {self.__id} Nombre: {self.__nombre}"
+
 
 class Propietario:
   def __init__(self,id,nombre):
     self.__id = id
     self.__nombre = nombre
   def __str__(self):
-    return f"ID: {self.__id} Nombre: {self.__nombre}"
+    return f"Id: {self.__id} Nombre: {self.__nombre}"
 
 class JuntaPropietarios:
   def __init__(self,id,fecha_creacion):
     self.__id = id
     self.__fecha_creacion = fecha_creacion
     self.__propietarios = []
-  def agregar_propietario(self,propietario):
-    self.__propietarios.append(propietario)
+  def agregar_propietario(self,objeto_propietario):
+    self.__propietarios.append(objeto_propietario)
   def obtener_info(self):
-    print(f"ID: {self.__id} Fecha de creacion: {self.__fecha_creacion}")
+    print(f"Id: {self.__id} Fecha de creacion: {self.__fecha_creacion}")
     print("Propietarios:")
     for propietario in self.__propietarios:
-      print(propietario)
+      print(propietario)#==============
 
 class Departamento:
-  def __init__(self,id,numero_habitaciones):
+  def __init__(self,id,numero_habitacion):
     self.__id = id
-    self.__numero_habitaciones = numero_habitaciones
+    self.__numero_habitacion = numero_habitacion
   def __str__(self):
-    return f"Id: {self.__id}, nùmero de habitaciones: {self.__numero_habitaciones}" 
-
+    return f"Id: {self.__id} Numero de habitacion: {self.__numero_habitacion}"
 
 class Edificio:
   def __init__(self,id,direccion):
@@ -39,51 +39,45 @@ class Edificio:
     self.__direccion = direccion
     self.__departamentos = []
     self.__administrador = None
-    self.__juntas_propietarios = None
-  def agregar_departamento(self,departamento):
-    self.__departamentos.append(departamento)
-  def asignar_administrador(self,administrador):
+    self.__junta_propietarios = None
+  def agregar_departamento(self,objeto_departamento):
+    self.__departamentos.append(objeto_departamento)
+  def asignar_administrador(self,objeto_administrador):
     self.__administrador = administrador
-  def asociar_junta_propietarios(self,junta_propietarios):
-    self.__juntas_propietarios = junta_propietarios
+  def asignar_junta_propietarios(self,objeto_junta_propietarios):
+    self.__junta_propietarios = junta_propietarios
   def obtener_info(self):
-    print(f"ID: {self.__id} Dirección: {self.__direccion}")
+    print(f"Id: {self.__id} Direccion: {self.__direccion}")
     print("Departamentos:")
     for departamento in self.__departamentos:
       print(departamento)
-    print('Administrador')
+    print('Información del administrador')
     print(self.__administrador)
-    print('Juntas de propietarios')
-    self.__juntas_propietarios.obtener_info()
+    print('junta_propietarios')
+    self.__junta_propietarios.obtener_info()
 
 
-#objeto administrativo
-objeto_administrador = Administrador(1,"David Pèrez")
 
-#objetos propiedtario
-objeto_propietario1 = Propietario(1,"Juan Pérez")
-objeto_propietario2 = Propietario(2,"María Gómez")
-objeto_propietario3 = Propietario(3,"Ana Gómez")
+administrador = Administrador(1,"Juan")
 
-#obejeto junta de propietarios 
-objeto_junta_propietarios = JuntaPropietarios(1,"22/11/2024")
-#agregar propietario a la junta
-objeto_junta_propietarios.agregar_propietario(objeto_propietario1)
-objeto_junta_propietarios.agregar_propietario(objeto_propietario2)
+propietario1 = Propietario(1,"Maria")
+propietario2 = Propietario(2,"Pedro")
+propietario3 = Propietario(3,"Ana")
 
-#crear un objeto departamento
-objeto_departamento1 = Departamento(1,4)
-objeto_departamento2 = Departamento(2,6)
-objeto_departamento3 = Departamento(3,5)
+junta_propietarios = JuntaPropietarios(1,"2024-11-23")
+junta_propietarios.agregar_propietario(propietario1)
+junta_propietarios.agregar_propietario(propietario2)
+#junta_propietarios.agregar_propietario(propietario3)
 
-#crear objeto edificio
-objeto_edificio = Edificio(1,"Calle 123")
-objeto_edificio.agregar_departamento(objeto_departamento1)
-objeto_edificio.agregar_departamento(objeto_departamento2)
-objeto_edificio.agregar_departamento(objeto_departamento3)
-#asignar
-objeto_edificio.asignar_administrador(objeto_administrador)
-objeto_edificio.asociar_junta_propietarios(objeto_junta_propietarios)
+departamento1 = Departamento(1,6)
+departamento2 = Departamento(2,3)
+departamento3 = Departamento(3,8)
 
-#mostrar información 
-objeto_edificio.obtener_info()
+edificio = Edificio(1,"Av. Siempre Viva 123")
+edificio.agregar_departamento(departamento1)
+edificio.agregar_departamento(departamento2)
+edificio.agregar_departamento(departamento3)
+edificio.asignar_administrador(administrador)
+edificio.asignar_junta_propietarios(junta_propietarios)
+
+edificio.obtener_info()
